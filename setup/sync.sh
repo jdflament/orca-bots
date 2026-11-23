@@ -30,7 +30,7 @@ record() {
 
 fail=0
 for role in "${ROLES[@]}"; do
-  f="$ROOT/$role/SOUL.md"
+  f="$ROOT/roles/$role/SOUL.md"
   target="$DST/$role/SOUL.md"
   sh="$(hash "$f")"
 

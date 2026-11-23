@@ -16,12 +16,12 @@ required = [
     "automations/README.md",
     "repos/TEMPLATE.md",
     "repos/REGISTRY.md",
-    "captain/SOUL.md",
-    "reviewer/SOUL.md",
-    "craft/SOUL.md",
-    "experience/SOUL.md",
-    "issues/SOUL.md",
-    "docs/SOUL.md",
+    "roles/captain/SOUL.md",
+    "roles/reviewer/SOUL.md",
+    "roles/craft/SOUL.md",
+    "roles/experience/SOUL.md",
+    "roles/issues/SOUL.md",
+    "roles/docs/SOUL.md",
 ]
 for rel in required:
     if not (ROOT / rel).is_file():
@@ -50,16 +50,16 @@ for skill in sorted((ROOT / "skills").glob("*/SKILL.md")):
     if len(lines) > 80:
         errors.append(f"{skill.name}: over 80 lines ({len(lines)})")
 
-for soul in sorted(ROOT.glob("*/SOUL.md")):
+for soul in sorted((ROOT / "roles").glob("*/SOUL.md")):
     text = soul.read_text()
     lines = text.splitlines()
     if len(lines) > 40:
-        errors.append(f"{soul.parent.name}/SOUL.md: over 40 lines ({len(lines)})")
+        errors.append(f"roles/{soul.parent.name}/SOUL.md: over 40 lines ({len(lines)})")
     for ref in set(re.findall(r"\bob-[a-z-]+", text)):
         if ref not in names:
-            errors.append(f"{soul.parent.name}/SOUL.md: unknown skill {ref}")
+            errors.append(f"roles/{soul.parent.name}/SOUL.md: unknown skill {ref}")
     if soul.parent.name == "captain" and "orca-coordinator plugin is present" not in text:
-        errors.append("captain/SOUL.md: optional coordinator rule missing")
+        errors.append("roles/captain/SOUL.md: optional coordinator rule missing")
 
 secret = re.compile(r"(gh[pousr]_[A-Za-z0-9]{20,}|sk-[A-Za-z0-9]{20,}|xox[baprs]-|AKIA[0-9A-Z]{16})")
 stale = re.compile(r"orca-agents|\boa-[a-z-]+")
@@ -79,4 +79,4 @@ if errors:
     for e in errors:
         print(" -", e)
     sys.exit(1)
-print(f"OK ({len(names)} skills, {len(list(ROOT.glob('*/SOUL.md')))} bots)")
+print(f"OK ({len(names)} skills, {len(list((ROOT / 'roles').glob('*/SOUL.md')))} bots)")

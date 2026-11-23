@@ -14,7 +14,7 @@ Canonical setup for a small fleet of Orca bots. Public by design: **no secrets, 
 
 | Path | Purpose |
 | --- | --- |
-| `<role>/` | Canonical `SOUL.md` per bot, at repo root |
+| `roles/<role>/` | Canonical `SOUL.md` per bot |
 | `skills/` | Agent-agnostic `ob-*` skills, installable from this repo |
 | `repos/` | Project registry + `AGENTS.md` marker block template |
 | `automations/` | CLI commands for event/schedule automations |
