@@ -10,6 +10,8 @@ description: >-
 ## Inputs
 
 - Use the running app in Orca's browser. Use Design Mode to capture element HTML, styles, and selector.
+- Start the app with the run command or preview URL from the handoff; else find it in the repo's README or manifest.
+- Walk the changed flow end to end first: does it do what the PR claims? Note console errors.
 - Compare against the project's design tokens and conventions, not personal taste.
 - Check at least: default, hover, focus, disabled, loading, empty, error, and narrow-width states.
 
@@ -25,3 +27,4 @@ description: >-
 - One finding per bullet: `selector/state — expected vs actual — rule or convention — smallest fix`.
 - Attach the captured selector or screenshot reference when it shortens the report.
 - Rank blocker / warning / nit. Max 5 bullets. Never edit code or tokens without approval.
+- End with `Verdict: ship | fix first | needs owner`.

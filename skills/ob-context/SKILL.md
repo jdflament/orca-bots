@@ -16,7 +16,7 @@ description: >-
 
 ## Cheap discovery — stop as soon as you have enough
 
-1. `repos/REGISTRY.md` in `jdflament/orca-bots` — hint list of known repos.
+1. The brief you were handed (repos, commands, policy). Captain: your profile in `memory/projects/` — or run `ob-onboard` if the project is new.
 2. `orca worktree ps --json` — active worktrees, branches, linked PRs/issues, status.
 3. In the target repo or folder, read only named files:
    - `README*`, `AGENTS.md`, `CLAUDE.md`, `orca.yaml` — purpose and local rules.
@@ -31,6 +31,7 @@ description: >-
 - No writes from this skill: no checkout, stash, rebase, or branch switch.
 - This is on-demand context, not the scheduled "Look around" bot scan.
 - Keep one snapshot per turn; do not re-read the same file twice.
+- Multi-repo project: read only the repos the task touches.
 
 ## Output
 
