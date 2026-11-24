@@ -14,14 +14,11 @@ required = [
     "setup/set-agent.mjs",
     "setup/bootstrap.md",
     "automations/README.md",
-    "repos/TEMPLATE.md",
-    "repos/REGISTRY.md",
+    "templates/AGENTS.fragment.md",
     "roles/captain/SOUL.md",
     "roles/reviewer/SOUL.md",
-    "roles/craft/SOUL.md",
     "roles/experience/SOUL.md",
     "roles/issues/SOUL.md",
-    "roles/docs/SOUL.md",
 ]
 for rel in required:
     if not (ROOT / rel).is_file():
@@ -60,6 +57,14 @@ for soul in sorted((ROOT / "roles").glob("*/SOUL.md")):
             errors.append(f"roles/{soul.parent.name}/SOUL.md: unknown skill {ref}")
     if soul.parent.name == "captain" and "orca-coordinator plugin is present" not in text:
         errors.append("roles/captain/SOUL.md: optional coordinator rule missing")
+
+sync_roles = re.search(r"^ROLES=\((.*)\)", (ROOT / "setup/sync.sh").read_text(), re.M)
+role_dirs = {p.parent.name for p in (ROOT / "roles").glob("*/SOUL.md")}
+if not sync_roles or set(sync_roles.group(1).split()) != role_dirs:
+    errors.append("setup/sync.sh: ROLES does not match roles/")
+
+if (ROOT / "repos").exists():
+    errors.append("repos/: project-specific config does not belong here; use ob-onboard")
 
 secret = re.compile(r"(gh[pousr]_[A-Za-z0-9]{20,}|sk-[A-Za-z0-9]{20,}|xox[baprs]-|AKIA[0-9A-Z]{16})")
 stale = re.compile(r"orca-agents|\boa-[a-z-]+")

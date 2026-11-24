@@ -4,7 +4,7 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-ROLES=(captain reviewer craft experience issues docs)
+ROLES=(captain reviewer experience issues)
 DST="${ORCA_BOTS_DIR:-$HOME/.orca/bots}"
 STATE="${ORCA_BOTS_STATE:-$HOME/.local/state/orca-bots}"
 DB="$STATE/manifest.tsv"
